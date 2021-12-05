@@ -14,6 +14,7 @@ will publishing JSON to topic `{host_name}/sensors_data`. Fields are presented b
 
 ## Installation
 Required python version >= 3.6
+
 Step 1. Download source
 ```sh
 $ git clone https://github.com/cybernextgen/hass_host_sensors.git
@@ -29,7 +30,7 @@ MQTT_BROCKER_PASSWORD = ''
 ```
 Inside `hass_host_sensor.service` edit next lines:
 ```sh
-ExecStart = ExecStart = {path to python3} {path to task.py}
+ExecStart = {path to python3} {path to task.py}
 User = {user} # run service as specific user and group
 Group = {user group}
 ...
