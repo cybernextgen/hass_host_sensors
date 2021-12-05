@@ -1,0 +1,17 @@
+[Unit]
+Description = Simple MQTT interface for hass.io host sensors
+After = network.target 
+ 
+[Service]
+Type = simple
+ExecStart = {path to python3} {path to task.py}
+User = {user}
+Group = {user group}
+Restart = always
+SyslogIdentifier = hass_host_sensors
+RestartSec = 60
+TimeoutStartSec = infinity
+StandardOutput=journal+console
+ 
+[Install]
+WantedBy = multi-user.target
