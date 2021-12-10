@@ -23,10 +23,12 @@ $ pip install -r hass_host_sensors/requirements.txt
 ```
 Step 2. Edit configuration constants inside `task.py` module:
 ```python
-MQTT_BROCKER_HOST = 'localhost'
-MQTT_BROCKER_PORT = 1883
-MQTT_BROCKER_USER = 'hass_host'
-MQTT_BROCKER_PASSWORD = ''
+SETTINGS = {
+    'mqtt_brocker_host': 'localhost',
+    'mqtt_brocker_port': 1883,
+    'mqtt_brocker_user': '',
+    'mqtt_brocker_password': ''
+}
 ```
 Inside `hass_host_sensor.service` edit next lines:
 ```sh
