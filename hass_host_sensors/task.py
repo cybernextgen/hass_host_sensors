@@ -7,16 +7,17 @@ import psutil
 import socket
 import json
 
-
-MQTT_BROCKER_HOST = 'localhost'
-MQTT_BROCKER_PORT = 1883
-MQTT_BROCKER_USER = 'hass_host'
-MQTT_BROCKER_PASSWORD = ''
+SETTINGS = {
+    'mqtt_brocker_host': 'localhost',
+    'mqtt_brocker_port': 1883,
+    'mqtt_brocker_user': '',
+    'mqtt_brocker_password': ''
+}
 
 logger = logging.getLogger(__name__)
 
 
-def main() -> None:
+def main(settings: Dict['str', Union[str, int]]) -> None:
     logger.setLevel(logging.INFO)
 
     formatter = logging.Formatter(fmt="%(asctime)s %(name)s.%(levelname)s: %(message)s", datefmt="%Y.%m.%d %H:%M:%S")
@@ -24,6 +25,11 @@ def main() -> None:
     handler = logging.StreamHandler(stream=sys.stdout)
     handler.setFormatter(formatter)
     logger.addHandler(handler)
+    try:
+        sensors_data = read_data_from_sensors()
+        send_sensors_data_to_brocker(sensors_data, settings)
+    except Exception as e:
+        logger.exception(e)
 
 
 def read_data_from_sensors() -> Dict[str, Union[str, int, float]]:
@@ -50,19 +56,16 @@ def read_data_from_sensors() -> Dict[str, Union[str, int, float]]:
             'root_fs_disk_usage': root_fs_disk_usage}
 
 
-def send_sensors_data_to_brocker(sensors_data: Dict[str, Any]) -> None:
+def send_sensors_data_to_brocker(sensors_data: Dict[str, Any], settings: Dict['str', Union[str, int]]) -> None:
     host_name = socket.gethostname()
     sensors_data_json = json.dumps(sensors_data)
     publish.single(f'{host_name}/sensors_data',
-                   hostname=MQTT_BROCKER_HOST,
+                   hostname=settings.get('mqtt_brocker_host'),
                    payload=sensors_data_json,
-                   auth={'username': MQTT_BROCKER_USER, 'password': MQTT_BROCKER_PASSWORD})
+                   port=settings.get('mqtt_brocker_port'),
+                   auth={'username': settings.get('mqtt_brocker_user'),
+                         'password': settings.get('mqtt_brocker_password')})
 
 
 if __name__ == '__main__':
-    main()
-    try:
-        sensors_data = read_data_from_sensors()
-        send_sensors_data_to_brocker(sensors_data)
-    except Exception as e:
-        logger.exception(e)
+    main(SETTINGS)

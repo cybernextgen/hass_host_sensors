@@ -1,6 +1,6 @@
 # HASS host sensors
-Simple MQTT interface for hass.io (HomeAssistant) host sensors. Runs as systemd service. Every `RestartSec` interval service 
-will publishing JSON to topic `{host_name}/sensors_data`. Fields are presented below:
+Simple MQTT interface for hass.io (HomeAssistant) host sensors. It runs as systemd service. Every `RestartSec` interval service 
+will publish JSON to topic `{host_name}/sensors_data`. Fields are presented below:
 ```js
 {
     'cpu_temp': {float, one decimal place, celsius},
