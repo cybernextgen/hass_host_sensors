@@ -1,4 +1,6 @@
 # HASS host sensors
+[![Build Status](https://api.travis-ci.com/cybernextgen/hass_host_sensors.svg?branch=master)](https://app.travis-ci.com/github/cybernextgen/hass_host_sensors) [![codecov](https://codecov.io/gh/cybernextgen/hass_host_sensors/branch/master/graph/badge.svg?token=HIYA4I77A5)](https://codecov.io/gh/cybernextgen/hass_host_sensors)
+
 Simple MQTT interface for hass.io (HomeAssistant) host sensors. It runs as systemd service. Every `RestartSec` interval service 
 will publish JSON to topic `{host_name}/sensors_data`. Fields are presented below:
 ```js
