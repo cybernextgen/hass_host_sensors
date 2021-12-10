@@ -37,7 +37,8 @@ class SimpleTestCase(unittest.TestCase):
 
         def on_connect(client, userdata, flags, rc):
             mqtt_client.subscribe(f'{hostname}/sensors_data')
-            main(settings)
+            p = Process(target=main, args=(settings,))
+            p.start()
 
         mqtt_client.on_connect = on_connect
         mqtt_client.on_message = on_message

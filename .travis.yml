@@ -11,5 +11,5 @@ python:
 install:
   - pip install -r hass_host_sensors/requirements.txt
 
-script: coverage run hass_host_sensors/tests.py
+script: coverage run --concurrency=multiprocessing hass_host_sensors/tests.py && coverage combine
 after_success: bash <(curl -s https://codecov.io/bash)
