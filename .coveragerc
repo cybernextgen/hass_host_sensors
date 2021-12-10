@@ -1,0 +1,12 @@
+[run]
+branch = True
+
+[paths]
+source =
+    hass_host_sensors/
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
