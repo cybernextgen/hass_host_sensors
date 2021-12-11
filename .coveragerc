@@ -1,5 +1,6 @@
 [run]
 branch = True
+omit = hass_host_sensors/tests.py
 
 [paths]
 source =
